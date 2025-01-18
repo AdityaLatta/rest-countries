@@ -1,5 +1,6 @@
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 import { useTheme } from "../context/ThemeContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const { theme, toggleTheme } = useTheme();
@@ -8,11 +9,11 @@ const Navbar = () => {
         <nav className="shadow-md bg-White dark:bg-Dark-Blue-Elements">
             <div className="max-w-desktop m-auto pl-4 pr-4">
                 <div className="h-20 flex items-center justify-between">
-                    <a href="/">
+                    <Link to="/">
                         <div className="text-lg sm:text-2xl font-bold dark:text-White">
                             Where in the world?
                         </div>
-                    </a>
+                    </Link>
 
                     <div onClick={() => toggleTheme()}>
                         {theme ? (
