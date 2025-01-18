@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 const CountryCard = ({ country }) => {
+    const navigate = useNavigate();
+
     return (
-        <div className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3">
+        <div
+            className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3"
+            onClick={() => navigate(`/${country.name.common}`)}
+        >
             <div className="shadow-md bg-white rounded-md dark:bg-Dark-Blue-Elements dark:text-White">
                 <div className="h-48 flex">
                     <img
@@ -11,7 +18,7 @@ const CountryCard = ({ country }) => {
                 </div>
 
                 <div className="h-52 p-6 font-bold">
-                    <h2 className="text-xl mb-6">{country.name.official}</h2>
+                    <h2 className="text-xl mb-6">{country.name.common}</h2>
 
                     <p>
                         Population:&nbsp;
