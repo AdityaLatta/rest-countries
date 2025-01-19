@@ -138,9 +138,9 @@ export default CountryDetails;
 
 const Line = ({ name, value }) => {
     return (
-        <div className="flex gap-1 pb-2">
-            <p className="font-semibold">{name}:</p>
-            <span>{value}</span>
+        <div className="pb-2">
+            <p className="font-semibold inline">{name} :</p>
+            <span className="inline ml-2">{value}</span>
         </div>
     );
 };
