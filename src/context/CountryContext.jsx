@@ -57,30 +57,39 @@ export const CountryProvider = ({ children }) => {
 
     useEffect(() => {
         const getCountries = async () => {
-            const res = await axios.get("https://restcountries.com/v3.1/all");
+            try {
+                const res = await axios.get(
+                    "https://restcountries.com/v3.1/all"
+                );
 
-            setAllCountries(res.data);
-            setCountries(res.data);
+                setAllCountries(res.data);
+                setCountries(res.data);
 
-            setLoading(false);
+                const regionsArray = res.data.reduce(
+                    (regionArray, { region }) => {
+                        if (!regionArray.includes(region)) {
+                            regionArray = [...regionArray, region];
+                        }
 
-            const regionsArray = res.data.reduce((regionArray, { region }) => {
-                if (!regionArray.includes(region)) {
-                    regionArray = [...regionArray, region];
-                }
+                        return regionArray;
+                    },
+                    []
+                );
 
-                return regionArray;
-            }, []);
+                const cca3NameObj = res.data.reduce((acc, { cca3, name }) => {
+                    acc[cca3] = name.common;
 
-            const cca3NameObj = res.data.reduce((acc, { cca3, name }) => {
-                acc[cca3] = name.common;
+                    return acc;
+                }, {});
 
-                return acc;
-            }, {});
+                setcca3Name(cca3NameObj);
 
-            setcca3Name(cca3NameObj);
-
-            setRegions(regionsArray);
+                setRegions(regionsArray);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
         };
 
         getCountries();
