@@ -100,7 +100,9 @@ const CountryDetails = () => {
 
                                 {country.borders && (
                                     <div className="flex flex-wrap gap-4 items-center mt-8">
-                                        <span>Border Countries:</span>
+                                        <p className="font-semibold">
+                                            Border Countries:
+                                        </p>
                                         {country.borders.map(
                                             (borderCountry) => (
                                                 <span
