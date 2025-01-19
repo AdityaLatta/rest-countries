@@ -4,9 +4,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 const countryContext = createContext();
 
 export const CountryProvider = ({ children }) => {
-    const [allCountries, setAllCountries] = useState(null);
+    const [allCountries, setAllCountries] = useState([]);
 
-    const [countries, setCountries] = useState(null);
+    const [countries, setCountries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [regions, setRegions] = useState([]);
     const [cca3Name, setcca3Name] = useState({});
