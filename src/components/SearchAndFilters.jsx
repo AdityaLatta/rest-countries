@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
 import { useCountryData } from "../context/CountryContext";
 
@@ -18,6 +18,7 @@ const SearchAndFilters = ({
     };
 
     const handleFilter = (event) => {
+        setinputValue("");
         if (event.target.innerText === "All") {
             setRegion("");
             getCountriesByRegion();

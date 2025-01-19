@@ -6,7 +6,7 @@ const CountryCard = ({ country }) => {
     return (
         <div
             className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3"
-            onClick={() => navigate(`/${country.cca3}`)}
+            onClick={() => navigate(`/country/${country.cca3}`)}
         >
             <div className="shadow-md bg-white rounded-md dark:bg-Dark-Blue-Elements dark:text-White">
                 <div className="h-52 flex">

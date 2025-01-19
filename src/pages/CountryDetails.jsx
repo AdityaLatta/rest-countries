@@ -108,7 +108,7 @@ const CountryDetails = () => {
                                                     className="pl-4 pr-4 pt-[2px] pb-[2px] shadow-[0_0_2px_1px_rgba(0,0,0,0.3)] cursor-pointer dark:bg-Dark-Blue-Elements"
                                                     onClick={() => {
                                                         navigate(
-                                                            `/${borderCountry}`,
+                                                            `/country/${borderCountry}`,
                                                             {
                                                                 replace: true,
                                                             }

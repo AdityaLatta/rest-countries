@@ -12,7 +12,6 @@ export const CountryProvider = ({ children }) => {
     const [cca3Name, setcca3Name] = useState({});
 
     const [inputValue, setinputValue] = useState("");
-
     const [isSearching, setisSearching] = useState(false);
 
     const getCountryByName = (name, region, returnValue = false) => {
@@ -93,14 +92,14 @@ export const CountryProvider = ({ children }) => {
                 countries,
                 loading,
                 regions,
+                isSearching,
+                inputValue,
+                cca3Name,
                 getCountriesByRegion,
                 getCountryByName,
                 getCountryByShortName,
-                isSearching,
                 setisSearching,
-                inputValue,
                 setinputValue,
-                cca3Name,
             }}
         >
             {children}
