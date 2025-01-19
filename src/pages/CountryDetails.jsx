@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCountryData } from "../context/CountryContext";
+import NotFound from "./NotFound";
 
 const CountryDetails = () => {
     const { name } = useParams();
@@ -14,29 +15,31 @@ const CountryDetails = () => {
         if (!loading) {
             const countryDetails = getCountryByShortName(name);
 
-            const currenciesArray = Object.values(
-                countryDetails.currencies
-            ).map((obj) => obj.name);
+            if (cca3Name[name]) {
+                const currenciesArray = Object.values(
+                    countryDetails.currencies
+                ).map((obj) => obj.name);
 
-            countryDetails["currenciesArray"] = currenciesArray;
+                countryDetails["currenciesArray"] = currenciesArray;
 
-            setCountry(countryDetails);
+                setCountry(countryDetails);
+            }
         }
     }, [loading, name]);
 
     return (
         <div className="dark:bg-Very-Dark-Blue-Background">
-            <div className="max-w-desktop m-auto pl-4 pr-4 pt-16 pb-10 min-h-dvh dark:bg-Very-Dark-Blue-Background">
-                <div className="flex flex-col gap-16">
-                    <button
-                        onClick={() => navigate(-1)}
-                        className="w-32 pt-1 pb-1 shadow-[0_0_5px_1px_rgba(0,0,0,0.3)] rounded-md cursor-pointer dark:text-White"
-                    >
-                        <FaArrowLeft className="inline" />
-                        <span className="pl-3">Back</span>
-                    </button>
+            {country ? (
+                <div className="max-w-desktop m-auto pl-4 pr-4 pt-16 pb-10 min-h-dvh dark:bg-Very-Dark-Blue-Background">
+                    <div className="flex flex-col gap-16">
+                        <button
+                            onClick={() => navigate(-1)}
+                            className="w-32 pt-1 pb-1 shadow-[0_0_5px_1px_rgba(0,0,0,0.3)] rounded-md cursor-pointer dark:text-White"
+                        >
+                            <FaArrowLeft className="inline" />
+                            <span className="pl-3">Back</span>
+                        </button>
 
-                    {country ? (
                         <div className="flex flex-col md:flex-row gap-10 justify-between items-center dark:text-White">
                             <div className="w-full md:w-1/2 xl:w-[40%]">
                                 <img
@@ -125,11 +128,11 @@ const CountryDetails = () => {
                                 )}
                             </div>
                         </div>
-                    ) : (
-                        "Loading"
-                    )}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <NotFound />
+            )}
         </div>
     );
 };
