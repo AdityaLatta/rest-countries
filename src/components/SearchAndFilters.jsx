@@ -32,7 +32,7 @@ const SearchAndFilters = ({
         <div className="dark:bg-Very-Dark-Blue-Background">
             <div className="max-w-desktop m-auto pl-4 pr-4 pt-10 pb-10 dark:bg-Very-Dark-Blue-Background">
                 <div className="flex flex-col gap-10 sm:flex-row sm:justify-between sm:items-center">
-                    <div className="p-4 pl-8 shadow-lg bg-White w-full max-w-lg rounded-md dark:bg-Dark-Blue-Elements dark:text-White">
+                    <div className="p-4 pl-8 shadow-lg bg-White text-Dark-Gray-light-input w-full max-w-lg rounded-md dark:bg-Dark-Blue-Elements dark:text-White">
                         <FaSearch className="inline" />
                         <input
                             type="text"
