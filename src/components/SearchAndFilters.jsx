@@ -66,7 +66,7 @@ const SearchAndFilters = ({
                                 >
                                     All
                                 </li>
-                                {regions.map((region) => (
+                                {regions.sort().map((region) => (
                                     <li
                                         key={region}
                                         className="w-full pl-2 hover:bg-Very-Dark-Blue-Background hover:text-White rounded-md"
