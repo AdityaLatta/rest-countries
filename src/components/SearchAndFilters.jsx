@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
+import { useCountryData } from "../context/CountryContext";
 
 const SearchAndFilters = ({
     getCountryByName,
@@ -9,7 +10,10 @@ const SearchAndFilters = ({
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [region, setRegion] = useState("");
 
+    const { inputValue, setinputValue } = useCountryData();
+
     const inputHandler = (event) => {
+        setinputValue(event.target.value);
         getCountryByName(event.target.value, region);
     };
 
@@ -33,6 +37,7 @@ const SearchAndFilters = ({
                             type="text"
                             name="search"
                             id="searchInput"
+                            value={inputValue}
                             placeholder="Search for a country..."
                             className="outline-none pl-6 w-[90%] dark:bg-Dark-Blue-Elements"
                             onChange={(event) => inputHandler(event)}
