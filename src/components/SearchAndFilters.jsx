@@ -1,30 +1,54 @@
 import { useState } from "react";
-import { FaAngleDown, FaSearch } from "react-icons/fa";
+
+import RegionFilter from "./RegionFilter";
+import SearchInput from "./SearchInput";
+import SortFilter from "./SortFilter";
+import SubRegionFilter from "./SubRegionFilter";
 import { useCountryData } from "../context/CountryContext";
 
-const SearchAndFilters = ({
-    getCountryByName,
-    getCountriesByRegion,
-    regions,
-}) => {
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
+const SearchAndFilters = ({ getCountriesByRegionAndSubRegion }) => {
+    const [isRegionOpen, setIsRegionOpen] = useState(false);
+    const [isSubRegionOpen, setIsSubRegionOpen] = useState(false);
     const [region, setRegion] = useState("");
+    const [subRegion, setSubRegion] = useState("");
 
-    const { inputValue, setinputValue } = useCountryData();
+    const { inputValue, setinputValue, getCountryByName } = useCountryData();
 
     const inputHandler = (event) => {
         setinputValue(event.target.value);
-        getCountryByName(event.target.value, region);
+        getCountryByName(event.target.value, region, subRegion);
     };
 
-    const handleFilter = (event) => {
+    const handleRegionOpen = () => {
+        setIsRegionOpen((prev) => !prev);
+        setIsSubRegionOpen(false);
+    };
+
+    const handleSubRegionOpen = () => {
+        setIsSubRegionOpen((prev) => !prev);
+        setIsRegionOpen(false);
+    };
+
+    const handleRegionClick = (event) => {
         setinputValue("");
+        setSubRegion("");
         if (event.target.innerText === "All") {
             setRegion("");
-            getCountriesByRegion();
+            getCountriesByRegionAndSubRegion();
         } else {
             setRegion(event.target.innerText);
-            getCountriesByRegion(event.target.innerText);
+            getCountriesByRegionAndSubRegion(event.target.innerText);
+        }
+    };
+
+    const handleSubRegionClick = (event) => {
+        setinputValue("");
+        if (event.target.innerText === "All") {
+            setSubRegion("");
+            getCountriesByRegionAndSubRegion();
+        } else {
+            setSubRegion(event.target.innerText);
+            getCountriesByRegionAndSubRegion(region, event.target.innerText);
         }
     };
 
@@ -32,51 +56,28 @@ const SearchAndFilters = ({
         <div className="dark:bg-Very-Dark-Blue-Background">
             <div className="max-w-desktop m-auto pl-4 pr-4 pt-10 pb-10 dark:bg-Very-Dark-Blue-Background">
                 <div className="flex flex-col gap-10 sm:flex-row sm:justify-between sm:items-center">
-                    <div className="p-4 pl-8 shadow-lg bg-White text-Dark-Gray-light-input w-full max-w-lg rounded-md dark:bg-Dark-Blue-Elements dark:text-White">
-                        <FaSearch className="inline" />
-                        <input
-                            type="text"
-                            name="search"
-                            id="searchInput"
-                            value={inputValue}
-                            placeholder="Search for a country..."
-                            className="outline-none pl-6 w-[90%] dark:bg-Dark-Blue-Elements"
-                            onChange={(event) => inputHandler(event)}
+                    <SearchInput
+                        inputValue={inputValue}
+                        inputHandler={inputHandler}
+                    />
+
+                    <div className="flex gap-2 flex-col sm:flex-row">
+                        <RegionFilter
+                            region={region}
+                            isRegionOpen={isRegionOpen}
+                            handleRegionClick={handleRegionClick}
+                            handleRegionOpen={handleRegionOpen}
                         />
-                    </div>
 
-                    <div
-                        className="relative"
-                        onClick={() => setIsFilterOpen((prev) => !prev)}
-                    >
-                        <div className="w-48 p-4 pl-6 pr-6 cursor-default bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White">
-                            {region ? region : "Filter By Region"}
-                            <FaAngleDown className="inline" />
-                        </div>
+                        <SubRegionFilter
+                            region={region}
+                            subRegion={subRegion}
+                            isSubRegionOpen={isSubRegionOpen}
+                            handleSubRegionClick={handleSubRegionClick}
+                            handleSubRegionOpen={handleSubRegionOpen}
+                        />
 
-                        <div
-                            className={`${
-                                isFilterOpen ? "" : "hidden"
-                            } w-48 p-4 mt-2 absolute bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White`}
-                        >
-                            <ul className="w-full">
-                                <li
-                                    className="w-full pl-2 hover:bg-Very-Dark-Blue-Background hover:text-White rounded-md"
-                                    onClick={(event) => handleFilter(event)}
-                                >
-                                    All
-                                </li>
-                                {regions.sort().map((region) => (
-                                    <li
-                                        key={region}
-                                        className="w-full pl-2 hover:bg-Very-Dark-Blue-Background hover:text-White rounded-md"
-                                        onClick={(event) => handleFilter(event)}
-                                    >
-                                        {region}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                        <SortFilter />
                     </div>
                 </div>
             </div>

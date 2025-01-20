@@ -7,7 +7,7 @@ const HomePage = () => {
         countries,
         loading,
         regions,
-        getCountriesByRegion,
+        getCountriesByRegionAndSubRegion,
         getCountryByName,
     } = useCountryData();
 
@@ -15,7 +15,9 @@ const HomePage = () => {
         <>
             <SearchAndFilters
                 getCountryByName={getCountryByName}
-                getCountriesByRegion={getCountriesByRegion}
+                getCountriesByRegionAndSubRegion={
+                    getCountriesByRegionAndSubRegion
+                }
                 regions={regions}
             />
             <Countries countries={countries} loading={loading} />

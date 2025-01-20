@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 const countryContext = createContext();
 
@@ -10,11 +10,24 @@ export const CountryProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [regions, setRegions] = useState([]);
     const [cca3Name, setcca3Name] = useState({});
+    const [subRegions, setSubRegions] = useState([]);
 
     const [inputValue, setinputValue] = useState("");
     const [isSearching, setisSearching] = useState(false);
 
-    const getCountryByName = (name, region, returnValue = false) => {
+    const sortCountries = (key, type = "asc") => {
+        if (type === "asc") {
+            const sortedData = countries.sort((a, b) => a[key] - b[key]);
+
+            setCountries([...sortedData]);
+        } else if (type === "dsc") {
+            const sortedData = countries.sort((a, b) => b[key] - a[key]);
+
+            setCountries([...sortedData]);
+        }
+    };
+
+    const getCountryByName = (name, region = "", subRegionName = "") => {
         const filterData = allCountries.filter((country) => {
             const isNameMatch = country.name.common
                 .toUpperCase()
@@ -23,24 +36,42 @@ export const CountryProvider = ({ children }) => {
             const isRegionMatch =
                 country.region.toUpperCase() === region.toUpperCase();
 
-            if (region) {
+            let isSubRegionMatch = false;
+
+            if (country.subregion) {
+                isSubRegionMatch =
+                    country.subregion.toUpperCase() ===
+                    subRegionName.toUpperCase();
+            }
+
+            if (region && !subRegionName) {
                 return isNameMatch && isRegionMatch;
+            } else if (region && subRegionName) {
+                return isNameMatch && isRegionMatch && isSubRegionMatch;
             } else {
                 return isNameMatch;
             }
         });
 
-        if (returnValue) {
-            return filterData[0];
-        } else {
-            setCountries(filterData);
-        }
+        setCountries(filterData);
     };
 
-    const getCountriesByRegion = (name = "") => {
-        if (name) {
+    const getCountriesByRegionAndSubRegion = (
+        regionName = "",
+        subRegionName = ""
+    ) => {
+        if (regionName && !subRegionName) {
             const filterData = allCountries.filter(
-                ({ region }) => region.toUpperCase() === name.toUpperCase()
+                ({ region }) =>
+                    regionName.toUpperCase() === region.toUpperCase()
+            );
+
+            setCountries(filterData);
+        } else if (regionName && subRegionName) {
+            const filterData = allCountries.filter(
+                ({ region, subregion }) =>
+                    regionName.toUpperCase() === region.toUpperCase() &&
+                    subRegionName.toUpperCase() === subregion.toUpperCase()
             );
 
             setCountries(filterData);
@@ -63,7 +94,6 @@ export const CountryProvider = ({ children }) => {
                     if (!config || !config.retry) {
                         return Promise.reject(err);
                     }
-                    // retry while Network timeout or Network Error
                     if (
                         !(
                             message.includes("timeout") ||
@@ -107,6 +137,25 @@ export const CountryProvider = ({ children }) => {
                     return acc;
                 }, {});
 
+                const subRegionsData = res.data.reduce(
+                    (acc, { region, subregion }) => {
+                        if (region && subregion) {
+                            if (acc[region]) {
+                                if (!acc[region].includes(subregion)) {
+                                    acc[region] = [...acc[region], subregion];
+                                }
+                            } else {
+                                acc[region] = [subregion];
+                            }
+                        }
+
+                        return acc;
+                    },
+                    {}
+                );
+
+                setSubRegions(subRegionsData);
+
                 setcca3Name(cca3NameObj);
 
                 setRegions(regionsArray);
@@ -129,11 +178,13 @@ export const CountryProvider = ({ children }) => {
                 isSearching,
                 inputValue,
                 cca3Name,
-                getCountriesByRegion,
+                subRegions,
+                getCountriesByRegionAndSubRegion,
                 getCountryByName,
                 getCountryByShortName,
                 setisSearching,
                 setinputValue,
+                sortCountries,
             }}
         >
             {children}
