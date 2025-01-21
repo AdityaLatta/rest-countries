@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { FaAngleDown } from "react-icons/fa";
 import { useCountryData } from "../context/CountryContext";
+
+import { FaAngleDown } from "react-icons/fa";
 
 const SortFilter = () => {
     const [isSortByOpen, setisSortByOpen] = useState(false);
@@ -16,7 +17,7 @@ const SortFilter = () => {
     };
 
     return (
-        <div className="relative" onClick={() => handleSortByOpen()}>
+        <div className="relative" onClick={handleSortByOpen}>
             <div className="w-56 p-4 pl-6 pr-6 cursor-default bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White">
                 Sort By
                 <FaAngleDown className="inline" />
@@ -25,7 +26,7 @@ const SortFilter = () => {
             <div
                 className={`${
                     isSortByOpen ? "" : "hidden"
-                } w-56 p-4 mt-2 absolute bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White`}
+                } w-56 p-4 mt-2 sm:absolute bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White`}
             >
                 <ul className="w-full">
                     <li onClick={() => handleSortClick("population", "asc")}>

@@ -1,7 +1,11 @@
+import { useCountryData } from "../context/CountryContext";
+
 import CountryCard from "./CountryCard";
 import Spinner from "./Spinner";
 
-const Countries = ({ countries, loading }) => {
+const Countries = () => {
+    const { countries, loading } = useCountryData();
+
     return (
         <div className="dark:bg-Very-Dark-Blue-Background min-h-dvh pb-10">
             <div className="max-w-desktop m-auto pl-4 pr-4">

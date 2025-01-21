@@ -1,6 +1,7 @@
-import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
-import { useTheme } from "../context/ThemeContext";
 import { Link } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
+
+import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
 const Navbar = () => {
     const { theme, toggleTheme } = useTheme();

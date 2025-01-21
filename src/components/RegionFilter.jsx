@@ -1,5 +1,6 @@
-import { FaAngleDown } from "react-icons/fa";
 import { useCountryData } from "../context/CountryContext";
+
+import { FaAngleDown } from "react-icons/fa";
 
 const RegionFilter = ({
     region,
@@ -19,7 +20,7 @@ const RegionFilter = ({
             <div
                 className={`${
                     isRegionOpen ? "" : "hidden"
-                } w-48 p-4 mt-2 absolute bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White`}
+                } w-48 p-4 mt-2 sm:absolute bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White`}
             >
                 <ul className="w-full">
                     <li

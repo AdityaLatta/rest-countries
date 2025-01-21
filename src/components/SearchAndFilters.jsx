@@ -1,18 +1,23 @@
 import { useState } from "react";
+import { useCountryData } from "../context/CountryContext";
 
 import RegionFilter from "./RegionFilter";
 import SearchInput from "./SearchInput";
 import SortFilter from "./SortFilter";
 import SubRegionFilter from "./SubRegionFilter";
-import { useCountryData } from "../context/CountryContext";
 
-const SearchAndFilters = ({ getCountriesByRegionAndSubRegion }) => {
+const SearchAndFilters = () => {
     const [isRegionOpen, setIsRegionOpen] = useState(false);
     const [isSubRegionOpen, setIsSubRegionOpen] = useState(false);
     const [region, setRegion] = useState("");
     const [subRegion, setSubRegion] = useState("");
 
-    const { inputValue, setinputValue, getCountryByName } = useCountryData();
+    const {
+        inputValue,
+        setinputValue,
+        getCountryByName,
+        getCountriesByRegionAndSubRegion,
+    } = useCountryData();
 
     const inputHandler = (event) => {
         setinputValue(event.target.value);
@@ -61,7 +66,7 @@ const SearchAndFilters = ({ getCountriesByRegionAndSubRegion }) => {
                         inputHandler={inputHandler}
                     />
 
-                    <div className="flex gap-2 flex-col sm:flex-row">
+                    <div className="flex gap-5 sm:gap-2 flex-col sm:flex-row">
                         <RegionFilter
                             region={region}
                             isRegionOpen={isRegionOpen}

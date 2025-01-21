@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { getCountriesFromApi } from "../api/countriesApi";
 
 const countryContext = createContext();
 
@@ -89,33 +89,7 @@ export const CountryProvider = ({ children }) => {
     useEffect(() => {
         const getCountries = async () => {
             try {
-                axios.interceptors.response.use(undefined, (err) => {
-                    const { config, message } = err;
-                    if (!config || !config.retry) {
-                        return Promise.reject(err);
-                    }
-                    if (
-                        !(
-                            message.includes("timeout") ||
-                            message.includes("Network Error")
-                        )
-                    ) {
-                        return Promise.reject(err);
-                    }
-                    config.retry -= 1;
-                    const delayRetryRequest = new Promise((resolve) => {
-                        setTimeout(() => {
-                            console.log("retry the request", config.url);
-                            resolve();
-                        }, config.retryDelay || 1000);
-                    });
-                    return delayRetryRequest.then(() => axios(config));
-                });
-
-                const res = await axios.get(
-                    "https://restcountries.com/v3.1/all",
-                    { retry: 3, retryDelay: 3000 }
-                );
+                const res = await getCountriesFromApi();
 
                 setAllCountries(res.data);
                 setCountries(res.data);

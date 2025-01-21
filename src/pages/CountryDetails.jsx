@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
-import Spinner from "../components/Spinner";
 import { useCountryData } from "../context/CountryContext";
+
+import { FaArrowLeft } from "react-icons/fa6";
+import Spinner from "../components/Spinner";
 import DetailCard from "../components/DetailCard";
 
 const CountryDetails = () => {

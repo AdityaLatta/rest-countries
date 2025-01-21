@@ -1,6 +1,6 @@
-import React from "react";
-import { FaAngleDown } from "react-icons/fa";
 import { useCountryData } from "../context/CountryContext";
+
+import { FaAngleDown } from "react-icons/fa";
 
 const SubRegionFilter = ({
     region,
@@ -21,7 +21,7 @@ const SubRegionFilter = ({
             <div
                 className={`${
                     isSubRegionOpen ? "" : "hidden"
-                } w-56 p-4 mt-2 absolute bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White`}
+                } w-56 p-4 mt-2 sm:absolute bg-White shadow-lg rounded-md flex justify-between items-center z-10 dark:bg-Dark-Blue-Elements dark:text-White`}
             >
                 <ul className="w-full">
                     {region &&
