@@ -29,18 +29,18 @@ const SortFilter = () => {
                 } w-56 p-4 mt-2 sm:absolute bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White`}
             >
                 <ul className="w-full">
-                    <li onClick={() => handleSortClick("population", "asc")}>
+                    <ListItem key="population" value="asc">
                         Population (Ascending)
-                    </li>
-                    <li onClick={() => handleSortClick("population", "dsc")}>
+                    </ListItem>
+                    <ListItem key="population" value="dsc">
                         Population (Descending)
-                    </li>
-                    <li onClick={() => handleSortClick("area", "asc")}>
+                    </ListItem>
+                    <ListItem key="area" value="asc">
                         Area (Ascending)
-                    </li>
-                    <li onClick={() => handleSortClick("area", "dsc")}>
+                    </ListItem>
+                    <ListItem key="area" value="dsc">
                         Area (Descending)
-                    </li>
+                    </ListItem>
                 </ul>
             </div>
         </div>
@@ -48,3 +48,14 @@ const SortFilter = () => {
 };
 
 export default SortFilter;
+
+const ListItem = ({ children, key, value }) => {
+    return (
+        <li
+            className="w-full pl-2 hover:bg-Very-Dark-Blue-Background hover:text-White rounded-md cursor-pointer"
+            onClick={() => handleSortClick(key, value)}
+        >
+            {children}
+        </li>
+    );
+};

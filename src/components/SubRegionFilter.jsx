@@ -29,14 +29,16 @@ const SubRegionFilter = ({
                         subRegions[region].sort().map((region) => (
                             <li
                                 key={region}
-                                className="w-full pl-2 hover:bg-Very-Dark-Blue-Background hover:text-White rounded-md"
+                                className="w-full pl-2 hover:bg-Very-Dark-Blue-Background hover:text-White rounded-md cursor-pointer"
                                 onClick={(event) => handleSubRegionClick(event)}
                             >
                                 {region}
                             </li>
                         ))}
 
-                    {region === "" && <li>Please Select Region</li>}
+                    {region === "" && (
+                        <li className="cursor-pointer">Please Select Region</li>
+                    )}
                     {region && !subRegions[region] && <li>Not SubRegions</li>}
                 </ul>
             </div>
