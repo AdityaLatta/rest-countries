@@ -6,14 +6,8 @@ import { FaAngleDown } from "react-icons/fa";
 const SortFilter = () => {
     const [isSortByOpen, setisSortByOpen] = useState(false);
 
-    const { sortCountries } = useCountryData();
-
     const handleSortByOpen = () => {
         setisSortByOpen((prev) => !prev);
-    };
-
-    const handleSortClick = (key, type) => {
-        sortCountries(key, type);
     };
 
     return (
@@ -29,16 +23,16 @@ const SortFilter = () => {
                 } w-56 p-4 mt-2 sm:absolute bg-White shadow-lg rounded-md flex justify-between items-center dark:bg-Dark-Blue-Elements dark:text-White`}
             >
                 <ul className="w-full">
-                    <ListItem key="population" value="asc">
+                    <ListItem name="population" type="asc">
                         Population (Ascending)
                     </ListItem>
-                    <ListItem key="population" value="dsc">
+                    <ListItem name="population" type="dsc">
                         Population (Descending)
                     </ListItem>
-                    <ListItem key="area" value="asc">
+                    <ListItem name="area" type="asc">
                         Area (Ascending)
                     </ListItem>
-                    <ListItem key="area" value="dsc">
+                    <ListItem name="area" type="dsc">
                         Area (Descending)
                     </ListItem>
                 </ul>
@@ -49,11 +43,17 @@ const SortFilter = () => {
 
 export default SortFilter;
 
-const ListItem = ({ children, key, value }) => {
+const ListItem = ({ children, name, type }) => {
+    const { sortCountries } = useCountryData();
+
+    const handleSortClick = (name, type) => {
+        sortCountries(name, type);
+    };
+
     return (
         <li
             className="w-full pl-2 hover:bg-Very-Dark-Blue-Background hover:text-White rounded-md cursor-pointer"
-            onClick={() => handleSortClick(key, value)}
+            onClick={() => handleSortClick(name, type)}
         >
             {children}
         </li>
