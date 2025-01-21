@@ -10,7 +10,7 @@ const CountryCard = ({ country }) => {
             className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3"
             onClick={() => navigate(`/country/${cca3}`)}
         >
-            <div className="shadow-md bg-white text-Very-Dark-Blue-light-text rounded-md dark:bg-Dark-Blue-Elements dark:text-White">
+            <div className="shadow-md bg-white text-Very-Dark-Blue-light-text rounded-md cursor-pointer dark:bg-Dark-Blue-Elements dark:text-White">
                 <div className="h-52 flex">
                     <img
                         src={flags.png}
