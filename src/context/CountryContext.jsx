@@ -17,11 +17,11 @@ export const CountryProvider = ({ children }) => {
 
     const sortCountries = (key, type = "asc") => {
         if (type === "asc") {
-            const sortedData = countries.sort((a, b) => a[key] - b[key]);
+            const sortedData = [...countries].sort((a, b) => a[key] - b[key]);
 
             setCountries([...sortedData]);
         } else if (type === "dsc") {
-            const sortedData = countries.sort((a, b) => b[key] - a[key]);
+            const sortedData = [...countries].sort((a, b) => b[key] - a[key]);
 
             setCountries([...sortedData]);
         }
@@ -90,6 +90,8 @@ export const CountryProvider = ({ children }) => {
         const getCountries = async () => {
             try {
                 const res = await getCountriesFromApi();
+
+                if (res.status != 200) return;
 
                 setAllCountries(res.data);
                 setCountries(res.data);

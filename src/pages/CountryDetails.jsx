@@ -6,6 +6,9 @@ import { FaArrowLeft } from "react-icons/fa6";
 import Spinner from "../components/Spinner";
 import DetailCard from "../components/DetailCard";
 
+const formatCurrencies = (currencies) =>
+    Object.values(currencies || {}).map((obj) => obj.name);
+
 const CountryDetails = () => {
     const { name } = useParams();
     const { getCountryByShortName, loading, cca3Name } = useCountryData();
@@ -18,18 +21,15 @@ const CountryDetails = () => {
             const countryDetails = getCountryByShortName(name);
 
             if (cca3Name[name]) {
-                const currenciesArray = Object.values(
+                countryDetails["currenciesArray"] = formatCurrencies(
                     countryDetails.currencies
-                ).map((obj) => obj.name);
-
-                countryDetails["currenciesArray"] = currenciesArray;
-
+                );
                 setCountry(countryDetails);
             } else {
-                navigate(`/${name}`);
+                navigate("/not-found");
             }
         }
-    }, [loading, name]);
+    }, [loading, name, getCountryByShortName, cca3Name, navigate]);
 
     return (
         <div className="dark:bg-Very-Dark-Blue-Background">
