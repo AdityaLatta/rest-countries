@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getCountriesFromApi } from "../api/countriesApi";
 
-const countryContext = createContext();
+const countryContext = createContext(null);
 
 export const CountryProvider = ({ children }) => {
     const [allCountries, setAllCountries] = useState([]);
