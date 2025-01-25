@@ -1,4 +1,3 @@
-import React from "react";
 import { useCountryData } from "../context/CountryContext";
 import { useNavigate } from "react-router-dom";
 
