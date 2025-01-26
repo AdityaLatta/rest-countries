@@ -91,10 +91,16 @@ export const CountryProvider = ({ children }) => {
             try {
                 const res = await getCountriesFromApi();
 
+                console.log("res---up", res.data);
+
                 if (res.status != 200) return;
+
+                console.log("res---down", res.data);
 
                 setAllCountries(res.data);
                 setCountries(res.data);
+
+                //------------------------------------------------------------
 
                 const regionsArray = res.data.reduce(
                     (regionArray, { region }) => {
@@ -107,11 +113,21 @@ export const CountryProvider = ({ children }) => {
                     []
                 );
 
+                console.log("regionsArr---", regionsArray);
+                setRegions(regionsArray);
+
+                //-------------------------------------------------------------
+
                 const cca3NameObj = res.data.reduce((acc, { cca3, name }) => {
                     acc[cca3] = name.common;
 
                     return acc;
                 }, {});
+
+                console.log("cca3NameObj---", cca3NameObj);
+                setcca3Name(cca3NameObj);
+
+                //-------------------------------------------------------------
 
                 const subRegionsData = res.data.reduce(
                     (acc, { region, subregion }) => {
@@ -130,11 +146,8 @@ export const CountryProvider = ({ children }) => {
                     {}
                 );
 
+                console.log("subRegionsData---", subRegionsData);
                 setSubRegions(subRegionsData);
-
-                setcca3Name(cca3NameObj);
-
-                setRegions(regionsArray);
             } catch (error) {
                 console.error(error);
             } finally {
