@@ -29,10 +29,10 @@ const SearchAndFilters = () => {
         setIsSubRegionOpen(false);
     };
 
-    const handleSubRegionOpen = () => {
-        setIsSubRegionOpen((prev) => !prev);
-        setIsRegionOpen(false);
-    };
+    // const handleSubRegionOpen = () => {
+    //     setIsSubRegionOpen((prev) => !prev);
+    //     setIsRegionOpen(false);
+    // };
 
     const handleRegionClick = (event) => {
         setinputValue("");
@@ -46,16 +46,16 @@ const SearchAndFilters = () => {
         }
     };
 
-    const handleSubRegionClick = (event) => {
-        setinputValue("");
-        if (event.target.innerText === "All") {
-            setSubRegion("");
-            getCountriesByRegionAndSubRegion();
-        } else {
-            setSubRegion(event.target.innerText);
-            getCountriesByRegionAndSubRegion(region, event.target.innerText);
-        }
-    };
+    // const handleSubRegionClick = (event) => {
+    //     setinputValue("");
+    //     if (event.target.innerText === "All") {
+    //         setSubRegion("");
+    //         getCountriesByRegionAndSubRegion();
+    //     } else {
+    //         setSubRegion(event.target.innerText);
+    //         getCountriesByRegionAndSubRegion(region, event.target.innerText);
+    //     }
+    // };
 
     return (
         <div className="dark:bg-Very-Dark-Blue-Background">
@@ -74,7 +74,7 @@ const SearchAndFilters = () => {
                             handleRegionOpen={handleRegionOpen}
                         />
 
-                        <SubRegionFilter
+                        {/* <SubRegionFilter
                             region={region}
                             subRegion={subRegion}
                             isSubRegionOpen={isSubRegionOpen}
@@ -82,7 +82,7 @@ const SearchAndFilters = () => {
                             handleSubRegionOpen={handleSubRegionOpen}
                         />
 
-                        <SortFilter />
+                        <SortFilter /> */}
                     </div>
                 </div>
             </div>
