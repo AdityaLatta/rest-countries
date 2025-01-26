@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getCountriesFromApi } from "../api/countriesApi";
+import axios from "axios";
 
 const countryContext = createContext(null);
 
@@ -89,13 +90,15 @@ export const CountryProvider = ({ children }) => {
     useEffect(() => {
         const getCountries = async () => {
             try {
-                const res = await getCountriesFromApi();
+                const res = await axios.get(
+                    "https://restcountries.com/v3.1/all"
+                );
 
-                console.log("res---up", res.data);
+                console.log("res---up", res);
 
                 if (res.status != 200) return;
 
-                console.log("res---down", res.data);
+                console.log("res---down", res);
 
                 setAllCountries(res.data);
                 setCountries(res.data);
