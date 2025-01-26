@@ -16,7 +16,7 @@ const router = createBrowserRouter(
     createRoutesFromChildren(
         <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="/country/:name" element={<CountryDetails />} />s */
+            <Route path="/country/:name" element={<CountryDetails />} />
             <Route path="*" element={<NotFound />} />
         </Route>
     )
