@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getCountriesFromApi } from "../api/countriesApi";
-import axios from "axios";
+
+const url = import.meta.env.VITE_API_URL;
 
 const countryContext = createContext(null);
 
@@ -90,15 +91,13 @@ export const CountryProvider = ({ children }) => {
     useEffect(() => {
         const getCountries = async () => {
             try {
-                const res = await axios.get(
-                    "https://restcountries.com/v3.1/all"
-                );
+                const res = await getCountriesFromApi(url);
 
                 console.log("res---up", res);
 
                 if (res.status != 200) return;
 
-                console.log("res---down", res);
+                console.log("res---down", res.data);
 
                 setAllCountries(res.data);
                 setCountries(res.data);
