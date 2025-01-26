@@ -4,7 +4,7 @@ import SearchAndFilters from "../components/SearchAndFilters";
 const HomePage = () => {
     return (
         <>
-            <SearchAndFilters />
+            {/* <SearchAndFilters /> */}
             <Countries />
         </>
     );
