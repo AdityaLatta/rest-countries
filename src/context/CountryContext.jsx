@@ -91,7 +91,9 @@ export const CountryProvider = ({ children }) => {
     useEffect(() => {
         const getCountries = async () => {
             try {
-                const res = await getCountriesFromApi(url);
+                const res = await getCountriesFromApi(
+                    "https://restcountries.com/v3.1/all"
+                );
 
                 console.log("res---up", res);
 
